@@ -1,0 +1,20 @@
+<p>Добавить бронирование</p>
+<form (submit)="addMeetingEvent()" [formGroup]="meetingForm">
+  <label> Дата, время:
+    <input formControlName="meetingDate" placeholder="YYYY.MM.DD hh:mm" value="" >
+    <app-form-error [control]="meetingForm.controls.meetingDate"></app-form-error>
+  </label>
+  <label> Инициатор:
+    <input formControlName="initiator" placeholder="Имя" value="">
+    <app-form-error [control]="meetingForm.controls.initiator"></app-form-error>
+  </label>
+  <label> Продолжительность:
+    <input formControlName="estimatedTime" placeholder="Имя" value="">
+    <app-form-error [control]="meetingForm.controls.estimatedTime"></app-form-error>
+  </label>
+  <button type="submit">Добавить</button><br>
+</form>
+
+<p>Список бронирований</p>
+<button (click)="logAllMeetings()">LOG</button>
+

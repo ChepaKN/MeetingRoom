@@ -1,0 +1,16 @@
+<div class="error" *ngIf="control.invalid; else elseBlock">
+  <div *ngIf="control.errors.required">
+    Пожалуйста, заполните полe
+  </div>
+  <div class="error" *ngIf="control.errors.maxlength;">
+    Превышена максимальная длина
+  </div>
+  <div *ngIf="control.errors.invalidDate">
+    {{control.getError('invalidDate')}}
+  </div>
+</div>
+
+<ng-template #elseBlock>
+  <label class="ok">Ок </label>
+  <br>
+</ng-template>
