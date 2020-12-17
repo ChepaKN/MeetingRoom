@@ -47,10 +47,14 @@ public class MeetingServiceImpl implements MeetingService {
         return MEETING_REPOSITORY_MAP.remove(id) != null;
     }
 
+    @Override
+    public void deleteAll() {
+        MEETING_REPOSITORY_MAP.clear();
+    }
 
     @PostConstruct
     private void initData(){
-        Meeting meeting = new Meeting(new Date(), "Konstantin", 120 );
+        Meeting meeting = new Meeting("2020.12.31 23:00", "Konstantin", 120 );
         this.create(meeting);
     }
 

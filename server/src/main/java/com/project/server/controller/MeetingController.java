@@ -7,7 +7,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -24,9 +23,6 @@ public class MeetingController {
     @PostMapping(value = "/meetings")
     public ResponseEntity<?> create(@RequestBody Meeting meeting){
         meetingService.create(meeting);
-
-        meetingService.readAll().forEach(meeting1 -> System.out.println(meeting1.getInitiator()));
-
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
@@ -36,7 +32,7 @@ public class MeetingController {
 
         return meetings != null && !meetings.isEmpty()
                 ? new ResponseEntity<>(meetings, HttpStatus.OK)
-                : new ResponseEntity<>(HttpStatus.NOT_FOUND);
+                : new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
     @GetMapping(value = "/meetings/{id}")
@@ -45,7 +41,7 @@ public class MeetingController {
 
         return meeting != null
                 ? new ResponseEntity<>(meeting, HttpStatus.OK)
-                : new ResponseEntity<>(HttpStatus.NOT_FOUND);
+                : new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
     @PutMapping(value = "/meetings/{id}")
@@ -64,5 +60,11 @@ public class MeetingController {
         return deleted
                 ? new ResponseEntity<>(HttpStatus.OK)
                 : new ResponseEntity<>(HttpStatus.NOT_MODIFIED);
+    }
+
+    @DeleteMapping(value = "/meetings")
+    public ResponseEntity<?> deleteAll(){
+        meetingService.deleteAll();
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 }

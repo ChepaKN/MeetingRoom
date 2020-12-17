@@ -16,4 +16,8 @@ export class BackendService {
   putMeeting(meeting: MeetingEntity):Observable<MeetingEntity>{
     return this.http.post<MeetingEntity>(this.url, meeting);
   }
+
+  deleteAllMeetings():Observable<MeetingEntity>{
+    return this.http.delete<MeetingEntity>(this.url);
+  }
 }

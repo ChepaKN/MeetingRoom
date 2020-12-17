@@ -6,11 +6,11 @@ import java.util.Date;
 public class Meeting {
 
     private Integer id;
-    private Date date;
+    private String date;
     private String initiator;
     private Long estimatedTime;
 
-    public Meeting(Date date, String initiator, long estimatedTime) {
+    public Meeting(String date, String initiator, long estimatedTime) {
         this.date = date;
         this.initiator = initiator;
         this.estimatedTime = estimatedTime;
@@ -23,7 +23,7 @@ public class Meeting {
         return id;
     }
 
-    public Date getDate() {
+    public String getDate() {
         return date;
     }
 
@@ -37,7 +37,7 @@ public class Meeting {
 
     public void setId(Integer id) { this.id = id; }
 
-    public void setDate(Date date) {
+    public void setDate(String date) {
         this.date = date;
     }
 

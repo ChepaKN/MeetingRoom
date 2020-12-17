@@ -11,4 +11,5 @@ public interface MeetingService {
     List<Meeting> readAll();
     boolean update(Meeting meeting, int id);
     boolean delete(int id);
+    void deleteAll();
 }
