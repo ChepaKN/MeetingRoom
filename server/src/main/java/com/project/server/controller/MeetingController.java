@@ -1,6 +1,6 @@
 package com.project.server.controller;
 
-import com.project.server.entity.Meeting;
+import com.project.server.controller.dto.MeetingDTO;
 import com.project.server.service.MeetingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -21,32 +21,32 @@ public class MeetingController {
     }
 
     @PostMapping(value = "/meetings")
-    public ResponseEntity<?> create(@RequestBody Meeting meeting){
-        meetingService.create(meeting);
+    public ResponseEntity<?> create(@RequestBody MeetingDTO meetingDTO){
+        meetingService.create(meetingDTO);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
     @GetMapping(value = "/meetings")
-    public ResponseEntity<List<Meeting>>read(){
-        final List<Meeting> meetings = meetingService.readAll();
+    public ResponseEntity<List<MeetingDTO>>read(){
+        final List<MeetingDTO> meetingDTOs = meetingService.readAll();
 
-        return meetings != null && !meetings.isEmpty()
-                ? new ResponseEntity<>(meetings, HttpStatus.OK)
+        return meetingDTOs != null && !meetingDTOs.isEmpty()
+                ? new ResponseEntity<>(meetingDTOs, HttpStatus.OK)
                 : new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
     @GetMapping(value = "/meetings/{id}")
-    public ResponseEntity<Meeting> read(@PathVariable(name = "id") int id) {
-        final Meeting meeting = meetingService.read(id);
+    public ResponseEntity<MeetingDTO> read(@PathVariable(name = "id") int id) {
+        final MeetingDTO meetingDTO = meetingService.read(id);
 
-        return meeting != null
-                ? new ResponseEntity<>(meeting, HttpStatus.OK)
+        return meetingDTO != null
+                ? new ResponseEntity<>(meetingDTO, HttpStatus.OK)
                 : new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
     @PutMapping(value = "/meetings/{id}")
-    public ResponseEntity<?> update(@PathVariable(name = "id") int id, @RequestBody Meeting meeting) {
-        final boolean updated = meetingService.update(meeting, id);
+    public ResponseEntity<?> update(@PathVariable(name = "id") int id, @RequestBody MeetingDTO meetingDTO) {
+        final boolean updated = meetingService.update(meetingDTO, id);
 
         return updated
                 ? new ResponseEntity<>(HttpStatus.OK)

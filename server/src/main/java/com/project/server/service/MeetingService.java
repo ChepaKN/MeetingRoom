@@ -1,15 +1,14 @@
 package com.project.server.service;
 
-import com.project.server.entity.Meeting;
-import com.sun.org.apache.xpath.internal.operations.Bool;
+import com.project.server.controller.dto.MeetingDTO;
 
 import java.util.List;
 
 public interface MeetingService {
-    void create(Meeting meeting);
-    Meeting read(int id);
-    List<Meeting> readAll();
-    boolean update(Meeting meeting, int id);
+    void create(MeetingDTO meetingDTO);
+    MeetingDTO read(int id);
+    List<MeetingDTO> readAll();
+    boolean update(MeetingDTO meetingDTO, int id);
     boolean delete(int id);
     void deleteAll();
 }
