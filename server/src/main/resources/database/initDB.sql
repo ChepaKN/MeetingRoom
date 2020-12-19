@@ -1,4 +1,3 @@
-drop table if exists meetingsTable;
 CREATE TABLE IF NOT EXISTS meetingsTable
 (
     id              SERIAL PRIMARY KEY ,

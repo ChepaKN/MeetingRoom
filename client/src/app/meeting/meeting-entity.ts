@@ -1,11 +1,11 @@
 export class MeetingEntity {
 
   id: number;
-  date: String;
-  initiator: String;
+  date: number;
+  initiator: string;
   estimatedTime: number;
 
-  constructor(id: number, date: String, initiator: String, estimatedTime: number) {
+  constructor(id: number, date: number, initiator: string, estimatedTime: number) {
     this.id = id;
     this.date = date;
     this.initiator = initiator;

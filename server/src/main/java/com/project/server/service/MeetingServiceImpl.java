@@ -20,24 +20,40 @@ public class MeetingServiceImpl implements MeetingService {
 
     @Override
     public void create(MeetingDTO meetingDTO) {
-        meetingRepository.save(meetingDTO.toDbEntity());
+        Meeting meeting = new Meeting(
+                meetingDTO.getDate(),
+                meetingDTO.getInitiator(),
+                meetingDTO.getEstimatedTime());
+        meetingRepository.save(meeting);
     }
 
     @Override
     public List<MeetingDTO> readAll() {
         List<Meeting> meetings = meetingRepository.findAll();
-        return meetings.stream().map(Meeting::toDTO).collect(Collectors.toList());
+        return meetings.stream()
+                .map(m -> new MeetingDTO(   m.getId().toString(),
+                                            m.getDate(),
+                                            m.getInitiator(),
+                                            m.getEstimatedTime()))
+                .collect(Collectors.toList());
     }
 
     @Override
     public MeetingDTO read(int id) {
-        return meetingRepository.getOne(id).toDTO();
+        Meeting meeting = meetingRepository.getOne(id);
+        return new MeetingDTO( meeting.getId().toString(),
+                                                meeting.getDate(),
+                                                meeting.getInitiator(),
+                                                meeting.getEstimatedTime());
     }
 
     @Override
     public boolean update(MeetingDTO meetingDTO, int id) {
         if (meetingRepository.existsById(id)) {
-            Meeting meeting = meetingDTO.toDbEntity();
+            Meeting meeting = new Meeting(
+                    meetingDTO.getDate(),
+                    meetingDTO.getInitiator(),
+                    meetingDTO.getEstimatedTime());
             meeting.setId(id);
             meetingRepository.save(meeting);
             return true;

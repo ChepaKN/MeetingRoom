@@ -24,9 +24,9 @@ public class MeetingDTO {
     public MeetingDTO() {
     }
 
-    public Meeting toDbEntity(){
-        return new Meeting(this.date, this.initiator, this.estimatedTime);
-    }
+//    public Meeting toDbEntity(){
+//        return new Meeting(this.date, this.initiator, this.estimatedTime);
+//    }
 
     public Long getDate() {
         return date;

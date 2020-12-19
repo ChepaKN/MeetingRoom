@@ -31,12 +31,6 @@ public class Meeting {
     public Meeting() {
 
     }
-    public MeetingDTO toDTO(){
-        return new MeetingDTO(this.id.toString(),
-                this.date,
-                this.initiator,
-                this.estimatedTime);
-    }
 
     public Integer getId() {
         return id;

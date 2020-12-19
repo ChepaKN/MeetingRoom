@@ -34,7 +34,9 @@ export class MeetingFormComponent implements OnInit, OnDestroy {
       .pipe(repeatWhen(() => this.refreshMeetings))
       .subscribe((meetings: MeetingEntity[]) => {
         this.meetings = meetings;
-        this.sortMeetings();
+        if(this.meetings != null){
+          this.sortMeetings();
+        }
       })
   }
 
@@ -45,7 +47,8 @@ export class MeetingFormComponent implements OnInit, OnDestroy {
     }
 
     const value = this.meetingForm.value;
-    const meeting = new MeetingEntity(1, value.meetingDate, value.initiator, value.estimatedTime);
+    const date = new Date(value.meetingDate).valueOf();
+    const meeting = new MeetingEntity(1, date, value.initiator, value.estimatedTime);
 
     const postMeetingsSubscription = this.backend.putMeeting(meeting)
       .subscribe(() => {
@@ -56,7 +59,7 @@ export class MeetingFormComponent implements OnInit, OnDestroy {
 
   sortMeetings(){
     this.meetings.sort((a, b) =>
-      new Date(a.date.toString()).valueOf()  - new Date(b.date.toString()).valueOf())
+      a.date - b.date);
   }
 
   logAllMeetings() {
