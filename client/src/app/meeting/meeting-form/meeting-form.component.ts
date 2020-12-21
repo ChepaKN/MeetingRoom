@@ -5,7 +5,6 @@ import {MeetingEntity} from "../meeting-entity";
 import {BackendService} from "../../service/backend.service";
 import {Subject, Subscription} from "rxjs";
 import {map, repeatWhen} from "rxjs/operators";
-import {LocalNgModuleData} from "@angular/compiler-cli/src/ngtsc/scope";
 
 @Component({
   selector: 'app-meeting-form',
@@ -17,27 +16,26 @@ export class MeetingFormComponent implements OnInit, OnDestroy {
   meetingForm: FormGroup;
   dateValidator = new DateValidator();
   meetings: MeetingEntity[];
-  refreshMeetings = new Subject();
   getMeetingsSubscription: Subscription;
 
   constructor(private backend: BackendService) {
     this.meetingForm = new FormGroup({
       meetingDate: new FormControl('', [Validators.required, this.dateValidator.validateDate]),
       initiator: new FormControl('', [Validators.required, Validators.maxLength(30)]),
-      estimatedTime: new FormControl('', [Validators.required, Validators.min(30), Validators.max(24*3600)]),
-    })
+      estimatedTime: new FormControl('', [Validators.required, Validators.min(30), Validators.max(24 * 3600)]),
+    });
   }
 
   ngOnInit(): void {
     this.getMeetingsSubscription = this.backend
       .getMeetings()
-      .pipe(repeatWhen(() => this.refreshMeetings))
+      .pipe(repeatWhen(() => this.backend.refreshMeetings))
       .subscribe((meetings: MeetingEntity[]) => {
         this.meetings = meetings;
         if(this.meetings != null){
           this.sortMeetings();
         }
-      })
+      });
   }
 
   addMeetingEvent() {
@@ -52,7 +50,7 @@ export class MeetingFormComponent implements OnInit, OnDestroy {
 
     const postMeetingsSubscription = this.backend.putMeeting(meeting)
       .subscribe(() => {
-        this.refreshMeetings.next();
+        this.backend.refreshMeetingsData();
         postMeetingsSubscription.unsubscribe();
       });
   }
@@ -74,7 +72,7 @@ export class MeetingFormComponent implements OnInit, OnDestroy {
   clearMeetings() {
     const deleteAllMeetingsSubscription = this.backend.deleteAllMeetings()
       .subscribe(() => {
-        this.refreshMeetings.next();
+        this.backend.refreshMeetingsData();
         deleteAllMeetingsSubscription.unsubscribe();
       });
   }

@@ -1,29 +1,48 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Inject, Input, OnDestroy, OnInit} from '@angular/core';
+import {DayDTO} from './day-dto';
+import {BackendService} from '../service/backend.service';
+import {repeatWhen} from 'rxjs/operators';
+import {MeetingEntity} from '../meeting/meeting-entity';
+import {Subject, Subscription} from 'rxjs';
 
 @Component({
   selector: 'app-day',
   templateUrl: './day.component.html',
   styleUrls: ['./day.component.css']
 })
-export class DayComponent implements OnInit {
+export class DayComponent implements OnInit, OnDestroy {
 
-  private readonly date: Date;
-  private readonly dayName: String;
 
-  constructor(date: Date, dayName: String) {
-    this.date = date;
-    this.dayName = dayName;
+  @Input()
+  day: DayDTO;
+
+  // refreshMeetings = new Subject();
+  getMeetingsSubscription: Subscription;
+  meetingList: MeetingEntity[];
+
+  constructor(private backend: BackendService) {
   }
 
-  getDate(): Date{
-    return this.date;
-  }
-
-  getDayName(): String{
-    return this.dayName;
-  }
 
   ngOnInit(): void {
+    this.getMeetingsSubscription = this.backend
+      .getMeetings()
+      .pipe(repeatWhen(() => this.backend.refreshMeetings))
+      .subscribe((meetings: MeetingEntity[]) => {
+        this.meetingList = meetings;
+        if (this.meetingList != null){
+          this.sortMeetings();
+        }
+      });
+  }
+
+  sortMeetings(){
+    this.meetingList.sort((a, b) =>
+      a.date - b.date);
+  }
+
+  ngOnDestroy(): void {
+    this.getMeetingsSubscription.unsubscribe();
   }
 
 }

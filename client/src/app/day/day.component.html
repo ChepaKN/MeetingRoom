@@ -1,1 +1,10 @@
-<p>day works!</p>
+<p>
+  {{day.dayName}}
+  <br>
+  {{day.date | date:'dd.MM.yyy'}}
+</p>
+<div *ngFor="let meet of meetingList">
+  {{meet.date | date:'dd.MM.yyy'}}
+      <br>
+  {{meet.initiator}}
+</div>
