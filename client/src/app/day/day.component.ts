@@ -25,15 +25,15 @@ export class DayComponent implements OnInit, OnDestroy {
 
 
   ngOnInit(): void {
-    this.getMeetingsSubscription = this.backend
-      .getMeetings()
-      .pipe(repeatWhen(() => this.backend.refreshMeetings))
-      .subscribe((meetings: MeetingEntity[]) => {
-        this.meetingList = meetings;
-        if (this.meetingList != null){
-          this.sortMeetings();
-        }
-      });
+    // this.getMeetingsSubscription = this.backend
+    //   .getMeetings()
+    //   .pipe(repeatWhen(() => this.backend.refreshMeetings))
+    //   .subscribe((meetings: MeetingEntity[]) => {
+    //     this.meetingList = meetings;
+    //     if (this.meetingList != null){
+    //       this.sortMeetings();
+    //     }
+    //   });
   }
 
   sortMeetings(){
@@ -42,7 +42,7 @@ export class DayComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.getMeetingsSubscription.unsubscribe();
+    // this.getMeetingsSubscription.unsubscribe();
   }
 
 }

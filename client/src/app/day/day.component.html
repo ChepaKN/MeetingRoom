@@ -4,7 +4,7 @@
   {{day.date | date:'dd.MM.yyy'}}
 </p>
 <div *ngFor="let meet of meetingList">
-  {{meet.date | date:'dd.MM.yyy'}}
+  {{meet.date | date:'HH:mm'}}
       <br>
   {{meet.initiator}}
 </div>

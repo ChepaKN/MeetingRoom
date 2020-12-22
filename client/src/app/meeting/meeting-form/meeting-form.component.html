@@ -14,25 +14,24 @@
   </label>
   <button type="submit">Добавить</button><br>
 </form>
-
 <hr>
 
 
-<p> Таблица бронирований</p>
-<table *ngFor="let meeting of meetings">
-  <tr>
-    <td>
-      {{meeting.date| date: 'dd.MM.yyyy HH:mm' }}
-    </td>
-    <td>
-      {{meeting.initiator}}
-    </td>
-    <td>
-      {{meeting.estimatedTime}}
-    </td>
-  </tr>
-</table>
+<!--<p> Таблица бронирований</p>-->
+<!--<table *ngFor="let meeting of meetings">-->
+<!--  <tr>-->
+<!--    <td>-->
+<!--      {{meeting.date| date: 'dd.MM.yyyy HH:mm' }}-->
+<!--    </td>-->
+<!--    <td>-->
+<!--      {{meeting.initiator}}-->
+<!--    </td>-->
+<!--    <td>-->
+<!--      {{meeting.estimatedTime}}-->
+<!--    </td>-->
+<!--  </tr>-->
+<!--</table>-->
 
-<button (click)="logAllMeetings()">LOG</button>
-<button (click)="clearMeetings()">Clear</button>
+<!--<button (click)="logAllMeetings()">LOG</button>-->
+<!--<button (click)="clearMeetings()">Clear</button>-->
 

@@ -1,6 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import {DayComponent} from '../day/day.component';
 import {DayDTO} from '../day/day-dto';
+import {repeatWhen} from 'rxjs/operators';
+import {MeetingEntity} from '../meeting/meeting-entity';
+import {Subscription} from 'rxjs';
+import {BackendService} from '../service/backend.service';
+import {DbQueryDTO} from '../service/db-query-dto';
 
 @Component({
   selector: 'app-week',
@@ -15,17 +20,22 @@ export class WeekComponent implements OnInit {
   weekDays: DayDTO[];
   weekDaysName = ['Понедельник', 'Вторник', 'Среда', 'Черверг', 'Пятница', 'Суббота'];
 
-  constructor(){}
+  meetings: MeetingEntity[];
+  getMeetingsSubscription: Subscription;
+  queryDTO: DbQueryDTO;
+
+    constructor(private backend: BackendService){}
 
   fillWeekDaysDates(): void{
 
     const currentDayNum = new Date().getDay();
     let mondayDate: Date;
+    const currentDateStart = new Date().setHours(0, 0, 0, 0);
     if (currentDayNum === 0) {
       // if sunday
-      mondayDate = new Date(Date.now() - this.workWeekLength * this.msInDay);
+      mondayDate = new Date(currentDateStart - this.workWeekLength * this.msInDay);
     }else{
-      mondayDate = new Date(Date.now() - (currentDayNum - 1) * this.msInDay);
+      mondayDate = new Date(currentDateStart - (currentDayNum - 1) * this.msInDay);
     }
     this.weekDays = [{
       date: mondayDate,
@@ -35,7 +45,29 @@ export class WeekComponent implements OnInit {
   }
 
   ngOnInit(): void {
+
     this.fillWeekDaysDates();
+
+    this.queryDTO = {
+      startOfWeek: this.weekDays[0].date.valueOf(),
+      endOfWeek: this.weekDays[0].date.valueOf() + 6 * this.msInDay - 1,
+    };
+
+    this.getMeetingsSubscription = this.backend
+      .getMeetingsByWeek(this.queryDTO)
+      .pipe(repeatWhen(() => this.backend.refreshMeetings))
+      .subscribe((meetings: MeetingEntity[]) => {
+        this.meetings = meetings;
+        if (this.meetings != null){
+          this.sortMeetings();
+          console.log(this.meetings.length);
+        }
+      });
+  }
+
+  sortMeetings(){
+    this.meetings.sort((a, b) =>
+      a.date - b.date);
   }
 
   prevClick(): void {

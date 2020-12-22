@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
-import {HttpClient} from "@angular/common/http";
+import {HttpClient, HttpParams} from '@angular/common/http';
 import {Observable, Subject} from 'rxjs';
 import {MeetingEntity} from "../meeting/meeting-entity";
+import {DbQueryDTO} from './db-query-dto';
 
 @Injectable()
 export class BackendService {
@@ -13,6 +14,10 @@ export class BackendService {
 
   getMeetings(): Observable<MeetingEntity[]>{
     return this.http.get<MeetingEntity[]>(this.url);
+  }
+
+  getMeetingsByWeek(queryDTO: DbQueryDTO): Observable<MeetingEntity[]>{
+    return this.http.post<MeetingEntity[]>(this.url + '/findByWeek', queryDTO);
   }
 
   putMeeting(meeting: MeetingEntity):Observable<MeetingEntity>{

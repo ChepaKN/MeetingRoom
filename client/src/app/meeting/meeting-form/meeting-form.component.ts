@@ -15,8 +15,8 @@ export class MeetingFormComponent implements OnInit, OnDestroy {
 
   meetingForm: FormGroup;
   dateValidator = new DateValidator();
-  meetings: MeetingEntity[];
-  getMeetingsSubscription: Subscription;
+  // meetings: MeetingEntity[];
+  // getMeetingsSubscription: Subscription;
 
   constructor(private backend: BackendService) {
     this.meetingForm = new FormGroup({
@@ -27,15 +27,15 @@ export class MeetingFormComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.getMeetingsSubscription = this.backend
-      .getMeetings()
-      .pipe(repeatWhen(() => this.backend.refreshMeetings))
-      .subscribe((meetings: MeetingEntity[]) => {
-        this.meetings = meetings;
-        if(this.meetings != null){
-          this.sortMeetings();
-        }
-      });
+    // this.getMeetingsSubscription = this.backend
+    //   .getMeetings()
+    //   .pipe(repeatWhen(() => this.backend.refreshMeetings))
+    //   .subscribe((meetings: MeetingEntity[]) => {
+    //     this.meetings = meetings;
+    //     if(this.meetings != null){
+    //       this.sortMeetings();
+    //     }
+    //   });
   }
 
   addMeetingEvent() {
@@ -55,18 +55,18 @@ export class MeetingFormComponent implements OnInit, OnDestroy {
       });
   }
 
-  sortMeetings(){
-    this.meetings.sort((a, b) =>
-      a.date - b.date);
-  }
+  // sortMeetings(){
+  //   this.meetings.sort((a, b) =>
+  //     a.date - b.date);
+  // }
 
-  logAllMeetings() {
-    this.sortMeetings();
-    this.meetings.forEach(value => console.log(value.date.valueOf()))
-  }
+  // logAllMeetings() {
+  //   this.sortMeetings();
+  //   this.meetings.forEach(value => console.log(value.date.valueOf()))
+  // }
 
   ngOnDestroy(): void {
-    this.getMeetingsSubscription.unsubscribe();
+    // this.getMeetingsSubscription.unsubscribe();
   }
 
   clearMeetings() {

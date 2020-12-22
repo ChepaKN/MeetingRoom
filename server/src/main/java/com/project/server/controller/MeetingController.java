@@ -1,5 +1,6 @@
 package com.project.server.controller;
 
+import com.project.server.controller.dto.DbQueryDTO;
 import com.project.server.controller.dto.MeetingDTO;
 import com.project.server.service.MeetingService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +27,15 @@ public class MeetingController {
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
-    @GetMapping(value = "/meetings")
+    @PostMapping(value = "/meetings/findByWeek")
+    public ResponseEntity<?> readByWeek(@RequestBody DbQueryDTO dbQueryDTO){
+        final List<MeetingDTO> meetingDTOs = meetingService.findByWeek(dbQueryDTO);
+        return meetingDTOs != null && !meetingDTOs.isEmpty()
+                ? new ResponseEntity<>(meetingDTOs, HttpStatus.OK)
+                : new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
+    @GetMapping(value = "/meetings/")
     public ResponseEntity<List<MeetingDTO>>read(){
         final List<MeetingDTO> meetingDTOs = meetingService.readAll();
 
