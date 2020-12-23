@@ -6,18 +6,20 @@
   </ul>
 </div>
 
-<ul class="weekdays" *ngIf="weekDays != null" >
-  <li *ngFor="let nextDay of weekDays">
-    <app-day [day]="nextDay"></app-day>
-  </li>
-</ul>
+<table>
+  <td *ngFor="let day of weekDays">
+    {{day.dayName}}
+    <br>
+    {{day.date | date:'dd.MM.yyy'}}
+    <hr>
+    <div *ngFor="let meet of meetings">
+        <div (click)="showInfo(meet)" class="meet" *ngIf="(belongsToDay(meet.date, day.date.valueOf()))">
+          {{meet.date | date:"HH:mm"}}
+          {{meet.initiator}}
+        </div>
+    </div>
+  </td>
+</table>
 
-<ul class="days">
-  <li>1</li>
-  <li>2</li>
-  <li>3</li>
-  <li>4</li>
-  <li>5</li>
-  <li>6</li>
-  <li><span class="active">10</span></li>
-</ul>
+
+

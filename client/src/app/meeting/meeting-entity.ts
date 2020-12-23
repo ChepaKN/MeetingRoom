@@ -12,5 +12,9 @@ export class MeetingEntity {
     this.estimatedTime = estimatedTime;
   }
 
+  getDay(): number{
+    return new Date(this.date).getDate();
+  }
+
 
 }

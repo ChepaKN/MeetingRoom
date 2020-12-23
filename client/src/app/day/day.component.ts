@@ -10,39 +10,18 @@ import {Subject, Subscription} from 'rxjs';
   templateUrl: './day.component.html',
   styleUrls: ['./day.component.css']
 })
-export class DayComponent implements OnInit, OnDestroy {
-
+export class DayComponent implements OnInit {
 
   @Input()
   day: DayDTO;
 
-  // refreshMeetings = new Subject();
-  getMeetingsSubscription: Subscription;
   meetingList: MeetingEntity[];
 
-  constructor(private backend: BackendService) {
+  constructor() {
   }
-
 
   ngOnInit(): void {
-    // this.getMeetingsSubscription = this.backend
-    //   .getMeetings()
-    //   .pipe(repeatWhen(() => this.backend.refreshMeetings))
-    //   .subscribe((meetings: MeetingEntity[]) => {
-    //     this.meetingList = meetings;
-    //     if (this.meetingList != null){
-    //       this.sortMeetings();
-    //     }
-    //   });
   }
 
-  sortMeetings(){
-    this.meetingList.sort((a, b) =>
-      a.date - b.date);
-  }
-
-  ngOnDestroy(): void {
-    // this.getMeetingsSubscription.unsubscribe();
-  }
 
 }

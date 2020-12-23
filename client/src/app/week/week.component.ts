@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import {DayComponent} from '../day/day.component';
 import {DayDTO} from '../day/day-dto';
 import {repeatWhen} from 'rxjs/operators';
 import {MeetingEntity} from '../meeting/meeting-entity';
@@ -24,7 +23,7 @@ export class WeekComponent implements OnInit {
   getMeetingsSubscription: Subscription;
   queryDTO: DbQueryDTO;
 
-    constructor(private backend: BackendService){}
+  constructor(private backend: BackendService){}
 
   fillWeekDaysDates(): void{
 
@@ -60,12 +59,11 @@ export class WeekComponent implements OnInit {
         this.meetings = meetings;
         if (this.meetings != null){
           this.sortMeetings();
-          console.log(this.meetings.length);
         }
       });
   }
 
-  sortMeetings(){
+  sortMeetings(): void{
     this.meetings.sort((a, b) =>
       a.date - b.date);
   }
@@ -93,5 +91,13 @@ export class WeekComponent implements OnInit {
       const nextDayDate = new Date(this.weekDays[i - 1].date.valueOf() + this.msInDay);
       this.weekDays.push({date: nextDayDate, dayName: this.weekDaysName[i]});
     }
+  }
+
+  belongsToDay(date1: number, date2: number): boolean{
+    return (((date1 - date2) < this.msInDay) && ((date1 - date2) >= 0));
+  }
+
+  showInfo(meet: MeetingEntity): void {
+    console.log(meet.date + meet.initiator + meet.estimatedTime);
   }
 }

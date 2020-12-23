@@ -81,6 +81,13 @@ public class MeetingService {
         return false;
     }
 
+//    public boolean availableToSave(MeetingDTO meetingDTO){
+//        long start  = meetingDTO.getDate();
+//        long stop   = start + meetingDTO.getEstimatedTime() * 1000;
+//        List<Meeting> meetings = meetingRepository.findByDateBetween(start,  stop);
+//        return meetings.size() == 0;
+//    }
+
     public void deleteAll() {
         meetingRepository.deleteAll();
     }
