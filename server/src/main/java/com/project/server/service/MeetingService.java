@@ -81,12 +81,13 @@ public class MeetingService {
         return false;
     }
 
-//    public boolean availableToSave(MeetingDTO meetingDTO){
+    public boolean availableToSave(MeetingDTO meetingDTO){
 //        long start  = meetingDTO.getDate();
 //        long stop   = start + meetingDTO.getEstimatedTime() * 1000;
 //        List<Meeting> meetings = meetingRepository.findByDateBetween(start,  stop);
-//        return meetings.size() == 0;
-//    }
+        List<Meeting> meetings = meetingRepository.customQuery(meetingDTO.getDate(), meetingDTO.getDate() + meetingDTO.getEstimatedTime() * 1000);
+        return meetings.size() == 0;
+    }
 
     public void deleteAll() {
         meetingRepository.deleteAll();

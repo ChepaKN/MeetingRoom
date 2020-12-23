@@ -1,17 +1,23 @@
-<p>Добавить бронирование</p>
 <form (submit)="addMeetingEvent()" [formGroup]="meetingForm">
-  <label> Дата, время:
-    <input formControlName="meetingDate" placeholder="YYYY.MM.DD hh:mm" value="" >
-    <app-form-error [control]="meetingForm.controls.meetingDate"></app-form-error>
-  </label>
-  <label> Инициатор:
-    <input formControlName="initiator" placeholder="Имя" value="">
-    <app-form-error [control]="meetingForm.controls.initiator"></app-form-error>
-  </label>
-  <label> Продолжительность:
-    <input formControlName="estimatedTime" placeholder="Минут" value="">
-    <app-form-error [control]="meetingForm.controls.estimatedTime"></app-form-error>
-  </label>
+  <a routerLink="">К календарю</a>
+  <table>
+    <caption style="">Заполните форму</caption>
+    <tr>
+      <td>Дата, время</td>
+      <td><input formControlName="meetingDate" placeholder="YYYY.MM.DD hh:mm" value="" ></td>
+      <td> <app-form-error [control]="meetingForm.controls.meetingDate"></app-form-error></td>
+    </tr>
+    <tr>
+      <td>Имя бронирующего</td>
+      <td><input formControlName="initiator" placeholder="Имя" value=""></td>
+      <td> <app-form-error [control]="meetingForm.controls.initiator"></app-form-error></td>
+    </tr>
+    <tr>
+      <td>Продолжительность, мин.</td>
+      <td><input formControlName="estimatedTime" placeholder="Минут" value=""></td>
+      <td><app-form-error [control]="meetingForm.controls.estimatedTime"></app-form-error></td>
+    </tr>
+  </table>
   <button type="submit">Добавить</button><br>
 </form>
 <hr>

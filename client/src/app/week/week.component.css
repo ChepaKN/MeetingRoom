@@ -47,7 +47,7 @@ table {
 }
 
 td, th {
-  border: 1px solid #CCC; height: 30px; width: auto;
+  border: 1px solid #CCC; height: 30px; width: auto; ;
 }
 
 th {

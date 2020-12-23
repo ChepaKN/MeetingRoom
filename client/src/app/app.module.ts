@@ -9,6 +9,16 @@ import {HttpClientModule} from "@angular/common/http";
 import {BackendService} from "./service/backend.service";
 import { WeekComponent } from './week/week.component';
 import { DayComponent } from './day/day.component';
+import {RouterModule, Routes} from '@angular/router';
+
+const routes: Routes = [{
+  path: '',
+  pathMatch: 'full',
+  component: WeekComponent,
+}, {
+  path: 'addMeeting',
+  component: MeetingFormComponent
+}];
 
 @NgModule({
   declarations: [
@@ -22,7 +32,8 @@ import { DayComponent } from './day/day.component';
         BrowserModule,
         ReactiveFormsModule,
         FormsModule,
-        HttpClientModule
+        HttpClientModule,
+        RouterModule.forRoot(routes)
     ],
   providers: [BackendService],
   bootstrap: [AppComponent]

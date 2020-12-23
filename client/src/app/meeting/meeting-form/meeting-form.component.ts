@@ -3,8 +3,6 @@ import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {DateValidator} from "../../validators/date-validator";
 import {MeetingEntity} from "../meeting-entity";
 import {BackendService} from "../../service/backend.service";
-import {Subject, Subscription} from "rxjs";
-import {map, repeatWhen} from "rxjs/operators";
 
 @Component({
   selector: 'app-meeting-form',
@@ -15,8 +13,6 @@ export class MeetingFormComponent implements OnInit, OnDestroy {
 
   meetingForm: FormGroup;
   dateValidator = new DateValidator();
-  // meetings: MeetingEntity[];
-  // getMeetingsSubscription: Subscription;
 
   constructor(private backend: BackendService) {
     this.meetingForm = new FormGroup({
@@ -27,21 +23,12 @@ export class MeetingFormComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    // this.getMeetingsSubscription = this.backend
-    //   .getMeetings()
-    //   .pipe(repeatWhen(() => this.backend.refreshMeetings))
-    //   .subscribe((meetings: MeetingEntity[]) => {
-    //     this.meetings = meetings;
-    //     if(this.meetings != null){
-    //       this.sortMeetings();
-    //     }
-    //   });
   }
 
-  addMeetingEvent() {
-    if(this.meetingForm.invalid){
-      console.error(this.meetingForm.get('eventDate').getError('invalidDate'))
-      return
+  addMeetingEvent(): void {
+    if (this.meetingForm.invalid){
+      console.error(this.meetingForm.get('eventDate').getError('invalidDate'));
+      return;
     }
 
     const value = this.meetingForm.value;
@@ -55,21 +42,10 @@ export class MeetingFormComponent implements OnInit, OnDestroy {
       });
   }
 
-  // sortMeetings(){
-  //   this.meetings.sort((a, b) =>
-  //     a.date - b.date);
-  // }
-
-  // logAllMeetings() {
-  //   this.sortMeetings();
-  //   this.meetings.forEach(value => console.log(value.date.valueOf()))
-  // }
-
   ngOnDestroy(): void {
-    // this.getMeetingsSubscription.unsubscribe();
   }
 
-  clearMeetings() {
+  clearMeetings(): void {
     const deleteAllMeetingsSubscription = this.backend.deleteAllMeetings()
       .subscribe(() => {
         this.backend.refreshMeetingsData();

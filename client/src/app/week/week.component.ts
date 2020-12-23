@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {DayDTO} from '../day/day-dto';
 import {repeatWhen} from 'rxjs/operators';
 import {MeetingEntity} from '../meeting/meeting-entity';
@@ -11,7 +11,7 @@ import {DbQueryDTO} from '../service/db-query-dto';
   templateUrl: './week.component.html',
   styleUrls: ['./week.component.css']
 })
-export class WeekComponent implements OnInit {
+export class WeekComponent implements OnInit, OnDestroy {
 
   private msInDay = 86400000;
   private msInWeek = this.msInDay * 7;
@@ -24,6 +24,23 @@ export class WeekComponent implements OnInit {
   queryDTO: DbQueryDTO;
 
   constructor(private backend: BackendService){}
+
+  ngOnInit(): void {
+
+    this.fillWeekDaysDates();
+
+    this.fillQueryDTO();
+
+    this.getMeetingsSubscription = this.backend
+      .getMeetingsByWeek(this.queryDTO)
+      .pipe(repeatWhen(() => this.backend.refreshMeetings))
+      .subscribe((meetings: MeetingEntity[]) => {
+        this.meetings = meetings;
+        if (this.meetings != null){
+          this.sortMeetings();
+        }
+      });
+  }
 
   fillWeekDaysDates(): void{
 
@@ -43,26 +60,6 @@ export class WeekComponent implements OnInit {
     this.fillDaysExceptMonday();
   }
 
-  ngOnInit(): void {
-
-    this.fillWeekDaysDates();
-
-    this.queryDTO = {
-      startOfWeek: this.weekDays[0].date.valueOf(),
-      endOfWeek: this.weekDays[0].date.valueOf() + 6 * this.msInDay - 1,
-    };
-
-    this.getMeetingsSubscription = this.backend
-      .getMeetingsByWeek(this.queryDTO)
-      .pipe(repeatWhen(() => this.backend.refreshMeetings))
-      .subscribe((meetings: MeetingEntity[]) => {
-        this.meetings = meetings;
-        if (this.meetings != null){
-          this.sortMeetings();
-        }
-      });
-  }
-
   sortMeetings(): void{
     this.meetings.sort((a, b) =>
       a.date - b.date);
@@ -75,6 +72,8 @@ export class WeekComponent implements OnInit {
       dayName: this.weekDaysName[0]
     }];
     this.fillDaysExceptMonday();
+
+    this.refreshMeetings();
   }
 
   nextClick(): void {
@@ -84,6 +83,27 @@ export class WeekComponent implements OnInit {
       dayName: this.weekDaysName[0]
     }];
     this.fillDaysExceptMonday();
+
+    this.refreshMeetings();
+  }
+
+  refreshMeetings(): void{
+    this.fillQueryDTO();
+    this.backend
+      .getMeetingsByWeek(this.queryDTO)
+      .subscribe((meetings: MeetingEntity[]) => {
+        this.meetings = meetings;
+        if (this.meetings != null){
+          this.sortMeetings();
+        }
+      });
+  }
+
+  fillQueryDTO(): void{
+    this.queryDTO = {
+      startOfWeek: this.weekDays[0].date.valueOf(),
+      endOfWeek: this.weekDays[0].date.valueOf() + 6 * this.msInDay - 1,
+    };
   }
 
   private fillDaysExceptMonday(): void{
@@ -99,5 +119,9 @@ export class WeekComponent implements OnInit {
 
   showInfo(meet: MeetingEntity): void {
     console.log(meet.date + meet.initiator + meet.estimatedTime);
+  }
+
+  ngOnDestroy(): void {
+    this.getMeetingsSubscription.unsubscribe();
   }
 }
