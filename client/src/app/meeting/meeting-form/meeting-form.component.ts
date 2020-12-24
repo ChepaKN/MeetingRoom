@@ -1,8 +1,8 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import {FormControl, FormGroup, Validators} from "@angular/forms";
-import {DateValidator} from "../../validators/date-validator";
-import {MeetingEntity} from "../meeting-entity";
-import {BackendService} from "../../service/backend.service";
+import {FormControl, FormGroup, Validators} from '@angular/forms';
+import {DateValidator} from '../../validators/date-validator';
+import {MeetingEntity} from '../meeting-entity';
+import {BackendService} from '../../service/backend.service';
 
 @Component({
   selector: 'app-meeting-form',
@@ -13,6 +13,7 @@ export class MeetingFormComponent implements OnInit, OnDestroy {
 
   meetingForm: FormGroup;
   dateValidator = new DateValidator();
+  attemptsToSave: string[] = [];
 
   constructor(private backend: BackendService) {
     this.meetingForm = new FormGroup({
@@ -39,10 +40,14 @@ export class MeetingFormComponent implements OnInit, OnDestroy {
       .subscribe((resp) => {
         if (resp.status === 208){
           alert('Выбранное время занято.');
+        }else{
+          this.backend.refreshMeetingsData();
+          this.meetingForm.setValue({['meetingDate']: '', ['initiator']: '', ['estimatedTime']: ''} );
         }
-        this.backend.refreshMeetingsData();
         postMeetingsSubscription.unsubscribe();
       });
+
+    this.attemptsToSave.push(meeting.toString());
   }
 
   ngOnDestroy(): void {

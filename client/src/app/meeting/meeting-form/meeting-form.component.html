@@ -1,5 +1,4 @@
-<form (submit)="addMeetingEvent()" [formGroup]="meetingForm">
-  <a routerLink="">К календарю</a>
+<form [formGroup]="meetingForm">
   <table>
     <caption style="">Заполните форму</caption>
     <tr>
@@ -18,6 +17,11 @@
       <td><app-form-error [control]="meetingForm.controls.estimatedTime"></app-form-error></td>
     </tr>
   </table>
-  <button type="submit">Добавить</button><br>
+  <br>
+  <div class="divButton">
+    <a routerLink="">К календарю</a>
+  </div>
+  <div *ngIf="meetingForm.valid" class="divButton">
+    <a (click)="addMeetingEvent()">Добавить</a>
+  </div>
 </form>
-<hr>

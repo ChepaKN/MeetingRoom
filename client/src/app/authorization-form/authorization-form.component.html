@@ -1,0 +1,18 @@
+<form [formGroup]="authorizationForm">
+  <table>
+    <caption>Введите логин/пароль</caption>
+    <tr>
+      <td>Логин</td>
+      <td><input formControlName="username" placeholder="***" value="" ></td>
+      <td> <app-form-error [control]="authorizationForm.controls.username"></app-form-error></td>
+    </tr>
+    <tr>
+      <td>Пароль</td>
+      <td><input formControlName="password" placeholder="***" value=""></td>
+      <td> <app-form-error [control]="authorizationForm.controls.password"></app-form-error></td>
+    </tr>
+  </table>
+  <div *ngIf="authorizationForm.valid" class="divButton">
+    <a (click)="login()">Войти</a>
+  </div>
+</form>

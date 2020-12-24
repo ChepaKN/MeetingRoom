@@ -16,5 +16,12 @@ export class MeetingEntity {
     return new Date(this.date).getDate();
   }
 
+  toString(): string{
+    return      this.id + ' '
+              + new Date(this.date) + ' '
+              + this.initiator + ' '
+              + this.estimatedTime;
+  }
+
 
 }

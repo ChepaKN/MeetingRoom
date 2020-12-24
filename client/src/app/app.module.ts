@@ -10,6 +10,8 @@ import {BackendService} from "./service/backend.service";
 import { WeekComponent } from './week/week.component';
 import { DayComponent } from './day/day.component';
 import {RouterModule, Routes} from '@angular/router';
+import { AuthorizationFormComponent } from './authorization-form/authorization-form.component';
+import {AuthorizationService} from './service/authorization.service';
 
 const routes: Routes = [{
   path: '',
@@ -18,6 +20,11 @@ const routes: Routes = [{
 }, {
   path: 'addMeeting',
   component: MeetingFormComponent
+},
+  {
+    path: 'authorization',
+    pathMatch: 'full',
+    component: AuthorizationFormComponent,
 }];
 
 @NgModule({
@@ -27,6 +34,7 @@ const routes: Routes = [{
     FormErrorComponent,
     WeekComponent,
     DayComponent,
+    AuthorizationFormComponent,
   ],
     imports: [
         BrowserModule,
@@ -35,7 +43,7 @@ const routes: Routes = [{
         HttpClientModule,
         RouterModule.forRoot(routes)
     ],
-  providers: [BackendService],
+  providers: [BackendService, AuthorizationService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

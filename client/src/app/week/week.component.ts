@@ -118,7 +118,9 @@ export class WeekComponent implements OnInit, OnDestroy {
   }
 
   showInfo(meet: MeetingEntity): void {
-    console.log(meet.date + meet.initiator + meet.estimatedTime);
+    const toShow = 'Дата: ' + new Date(meet.date).toDateString() + '\n' + 'Имя: ' + meet.initiator + '\n'
+      + 'Продолжительность: ' + meet.estimatedTime + 'мин';
+    alert(toShow);
   }
 
   ngOnDestroy(): void {

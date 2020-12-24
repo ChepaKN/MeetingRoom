@@ -4,7 +4,7 @@ TABLE {
 }
 TD, TR {
   padding: 3px; /* Поля вокруг содержимого таблицы */
-  border: 2px solid #1abc9c; /* Параметры рамки */
+  border: 1px solid #1abc9c; /* Параметры рамки */
   text-align: center; /* Выравнивание по левому краю */
 }
 input{
