@@ -24,12 +24,12 @@ public class MeetingController {
 
     @PostMapping(value = "/meetings")
     public ResponseEntity<?> create(@RequestBody MeetingDTO meetingDTO){
-//        if(meetingService.availableToSave(meetingDTO)){
+        if(meetingService.availableToSave(meetingDTO)){
             meetingService.create(meetingDTO);
             return new ResponseEntity<>(HttpStatus.CREATED);
-//        }else{
-//            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-//        }
+        }else{
+            return new ResponseEntity<>(HttpStatus.ALREADY_REPORTED);
+        }
     }
 
     @PostMapping(value = "/meetings/findByWeek")

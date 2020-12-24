@@ -4,6 +4,7 @@ import com.project.server.controller.dto.DbQueryDTO;
 import com.project.server.controller.dto.MeetingDTO;
 import com.project.server.entity.Meeting;
 import com.project.server.repository.MeetingRepository;
+import com.sun.istack.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -82,11 +83,51 @@ public class MeetingService {
     }
 
     public boolean availableToSave(MeetingDTO meetingDTO){
-//        long start  = meetingDTO.getDate();
-//        long stop   = start + meetingDTO.getEstimatedTime() * 1000;
-//        List<Meeting> meetings = meetingRepository.findByDateBetween(start,  stop);
-        List<Meeting> meetings = meetingRepository.customQuery(meetingDTO.getDate(), meetingDTO.getDate() + meetingDTO.getEstimatedTime() * 1000);
-        return meetings.size() == 0;
+        boolean toReturn;
+        int msInMin = 60 * 1000;
+        long meetCount = meetingRepository.count();
+        long belowCount = meetingRepository.findBelowCounter(meetingDTO.getDate());
+        long topCount = meetingRepository.findTopCounter(meetingDTO.getDate() + meetingDTO.getEstimatedTime() * msInMin);
+
+        if(meetingRepository.existsByDate(meetingDTO.getDate())){
+            return false;
+        }
+
+        if(meetCount == 0){
+            //empty table
+            toReturn = true;
+        }else if(meetCount == 1){
+            //one record
+            Meeting meeting = meetingRepository.findAll().get(0);
+            if(meetingDTO.getDate() > meeting.getDate()){
+                toReturn = (meetingDTO.getDate() > (meeting.getDate() + meeting.getEstimatedTime() * msInMin));
+            }else{
+                toReturn = ((meetingDTO.getDate() + meetingDTO.getEstimatedTime() * msInMin) < meeting.getDate());
+            }
+        }else{
+            if(belowCount > 0 && topCount > 0) {
+                //between two dates
+                long nearestBelowDate = meetingRepository.findNearestBelow(meetingDTO.getDate());
+                long nearestTopDate = meetingRepository.findNearestTop(meetingDTO.getDate() + meetingDTO.getEstimatedTime() * msInMin);
+                Meeting nearestBelowMeeting = meetingRepository.findByDate(nearestBelowDate);
+                Meeting nearestTopMeeting = meetingRepository.findByDate(nearestTopDate);
+                if (meetingDTO.getDate() > (nearestBelowMeeting.getDate() + nearestBelowMeeting.getEstimatedTime() * msInMin)) {
+                    toReturn = meetingDTO.getDate() < nearestTopMeeting.getDate();
+                } else {
+                    toReturn = false;
+                }
+            }else if (belowCount == 0){
+                //below
+                long nearestTopDate = meetingRepository.findNearestTop(meetingDTO.getDate() + meetingDTO.getEstimatedTime() * msInMin);
+                toReturn = ((meetingDTO.getDate() + meetingDTO.getEstimatedTime() * msInMin) < nearestTopDate);
+            }else{
+                //above
+                long nearestBelowDate = meetingRepository.findNearestBelow(meetingDTO.getDate());
+                Meeting nearestBelowMeeting = meetingRepository.findByDate(nearestBelowDate);
+                toReturn = (meetingDTO.getDate() > (nearestBelowMeeting.getDate() + nearestBelowMeeting.getEstimatedTime() * msInMin));
+            }
+        }
+        return toReturn;
     }
 
     public void deleteAll() {

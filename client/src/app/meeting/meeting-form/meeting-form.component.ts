@@ -36,7 +36,10 @@ export class MeetingFormComponent implements OnInit, OnDestroy {
     const meeting = new MeetingEntity(1, date, value.initiator, value.estimatedTime);
 
     const postMeetingsSubscription = this.backend.putMeeting(meeting)
-      .subscribe(() => {
+      .subscribe((resp) => {
+        if (resp.status === 208){
+          alert('Выбранное время занято.');
+        }
         this.backend.refreshMeetingsData();
         postMeetingsSubscription.unsubscribe();
       });
