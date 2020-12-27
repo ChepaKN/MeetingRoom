@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import {HttpClient, HttpResponse} from '@angular/common/http';
 import {Observable, Subject} from 'rxjs';
 import {MeetingEntity} from '../meeting/meeting-entity';
-import {DbQueryDTO} from './db-query-dto';
+import {DbQueryDTO} from '../dto/db-query-dto';
 
 @Injectable()
 export class BackendService {

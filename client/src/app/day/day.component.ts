@@ -1,9 +1,6 @@
-import {Component, Inject, Input, OnDestroy, OnInit} from '@angular/core';
-import {DayDTO} from './day-dto';
-import {BackendService} from '../service/backend.service';
-import {repeatWhen} from 'rxjs/operators';
+import {Component, Input, OnInit} from '@angular/core';
+import {DayDTO} from '../dto/day-dto';
 import {MeetingEntity} from '../meeting/meeting-entity';
-import {Subject, Subscription} from 'rxjs';
 
 @Component({
   selector: 'app-day',

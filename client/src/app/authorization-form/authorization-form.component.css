@@ -1,11 +1,11 @@
 TABLE {
-  border-collapse: collapse; /* Убираем двойные линии между ячейками */
+  border-collapse: collapse;
   width: auto;
 }
 TD, TR {
-  padding: 3px; /* Поля вокруг содержимого таблицы */
-  border: 1px solid #1abc9c; /* Параметры рамки */
-  text-align: center; /* Выравнивание по левому краю */
+  padding: 3px;
+  border: 1px solid #1abc9c;
+  text-align: center;
 }
 input{
   border: none;
@@ -26,9 +26,31 @@ a:hover{
   border-radius: 5px;
   width: max-content;
   background: #1abc9c;
-  float: left;
+  float: right;
   cursor: pointer;
 }
 .divButton:hover{
   background: #FAFAFA;
 }
+
+.login{
+  border: 1px solid green;
+  border-radius: 4px;
+}
+
+.button{
+  background: #2ad4b6;
+  border-radius: 5px;
+  border-color: white;
+  color: white;
+  font-size: 16px;
+  font-family: Verdana, sans-serif;
+  float: right;
+  margin-top: 10px;
+
+}
+.button:hover{
+  background: #80e28f;
+  cursor: pointer;
+}
+

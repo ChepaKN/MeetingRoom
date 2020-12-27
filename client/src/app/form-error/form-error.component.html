@@ -5,6 +5,12 @@
   <div class="error" *ngIf="control.errors.maxlength;">
     Превышена максимальная длина
   </div>
+  <div class="error" *ngIf="control.errors.min">
+    От 30 минут
+  </div>
+  <div class="error" *ngIf="control.errors.max">
+    Максимум 1 сутки
+  </div>
   <div *ngIf="control.errors.invalidDate">
     {{control.getError('invalidDate')}}
   </div>

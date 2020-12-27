@@ -1,9 +1,6 @@
 package com.project.server.entity;
 
-import com.project.server.controller.dto.MeetingDTO;
-
 import javax.persistence.*;
-import java.util.Date;
 
 @Entity
 @Table(name = "meetingstable")

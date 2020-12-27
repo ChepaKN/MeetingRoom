@@ -1,10 +1,10 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
-import {DayDTO} from '../day/day-dto';
+import {Component, Input, OnDestroy, OnInit} from '@angular/core';
+import {DayDTO} from '../dto/day-dto';
 import {repeatWhen} from 'rxjs/operators';
 import {MeetingEntity} from '../meeting/meeting-entity';
 import {Subscription} from 'rxjs';
 import {BackendService} from '../service/backend.service';
-import {DbQueryDTO} from '../service/db-query-dto';
+import {DbQueryDTO} from '../dto/db-query-dto';
 
 @Component({
   selector: 'app-week',
@@ -22,6 +22,9 @@ export class WeekComponent implements OnInit, OnDestroy {
   meetings: MeetingEntity[];
   getMeetingsSubscription: Subscription;
   queryDTO: DbQueryDTO;
+
+  loginStatus: boolean;
+  isAdminStatus: boolean;
 
   constructor(private backend: BackendService){}
 
@@ -72,7 +75,6 @@ export class WeekComponent implements OnInit, OnDestroy {
       dayName: this.weekDaysName[0]
     }];
     this.fillDaysExceptMonday();
-
     this.refreshMeetings();
   }
 
@@ -83,12 +85,12 @@ export class WeekComponent implements OnInit, OnDestroy {
       dayName: this.weekDaysName[0]
     }];
     this.fillDaysExceptMonday();
-
     this.refreshMeetings();
   }
 
   refreshMeetings(): void{
     this.fillQueryDTO();
+    const getMeetingsByWeekSubscription =
     this.backend
       .getMeetingsByWeek(this.queryDTO)
       .subscribe((meetings: MeetingEntity[]) => {
@@ -96,6 +98,7 @@ export class WeekComponent implements OnInit, OnDestroy {
         if (this.meetings != null){
           this.sortMeetings();
         }
+        getMeetingsByWeekSubscription.unsubscribe();
       });
   }
 
@@ -125,5 +128,21 @@ export class WeekComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.getMeetingsSubscription.unsubscribe();
+  }
+
+  setLoginStatus($event: boolean): void {
+    this.loginStatus = $event;
+  }
+
+  setAdminStatus($event: boolean): void {
+    this.isAdminStatus = $event;
+  }
+
+  clearMeetings(): void {
+    const deleteAllMeetingsSubscription = this.backend.deleteAllMeetings()
+      .subscribe(() => {
+        this.backend.refreshMeetingsData();
+        deleteAllMeetingsSubscription.unsubscribe();
+      });
   }
 }

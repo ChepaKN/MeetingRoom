@@ -1,3 +1,6 @@
--- INSERT INTO meetingsTable VALUES
--- (3, 1608272771699, 'Konstantin Chepa Super', 113),
--- (4, 1608272771222, 'Victor Semenovich', 114);
+-- INSERT INTO users VALUES
+-- (1, 'root', 'root', 'ГрандМастерАдмин'),
+-- (2, 'koss', '1111', 'Константин'),
+-- (3, 'alex', '2222', 'Александр'),
+-- (4, 'andr', '3333', 'Андрей'),
+-- (5, 'serg', '4444', 'Сергей');

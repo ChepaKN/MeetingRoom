@@ -1,0 +1,9 @@
+<div *ngIf="user != null">
+  <img *ngIf="user.login == 'root'; else elseBlock" src= 'assets/root.png' alt="{{user.username}}">
+  <hr style="border: 1px solid green">
+  <p>{{user.username}}</p>
+</div>
+
+<ng-template #elseBlock>
+  <img src= 'assets/avatar.png' alt="{{user.username}}">
+</ng-template>

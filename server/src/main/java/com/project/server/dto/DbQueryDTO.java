@@ -1,8 +1,8 @@
-package com.project.server.controller.dto;
+package com.project.server.dto;
 
 public class DbQueryDTO {
-    private Long startOfWeek;
-    private Long endOfWeek;
+    private final Long startOfWeek;
+    private final Long endOfWeek;
 
     public DbQueryDTO(Long startOfWeek, Long endOfWeek) {
         this.startOfWeek = startOfWeek;
@@ -17,11 +17,4 @@ public class DbQueryDTO {
         return endOfWeek;
     }
 
-    public void setStartOfWeek(Long startOfWeek) {
-        this.startOfWeek = startOfWeek;
-    }
-
-    public void setEndOfWeek(Long endOfWeek) {
-        this.endOfWeek = endOfWeek;
-    }
 }

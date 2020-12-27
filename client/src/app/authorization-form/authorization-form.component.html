@@ -1,18 +1,27 @@
-<form [formGroup]="authorizationForm">
-  <table>
-    <caption>Введите логин/пароль</caption>
-    <tr>
-      <td>Логин</td>
-      <td><input formControlName="username" placeholder="***" value="" ></td>
-      <td> <app-form-error [control]="authorizationForm.controls.username"></app-form-error></td>
-    </tr>
-    <tr>
-      <td>Пароль</td>
-      <td><input formControlName="password" placeholder="***" value=""></td>
-      <td> <app-form-error [control]="authorizationForm.controls.password"></app-form-error></td>
-    </tr>
-  </table>
-  <div *ngIf="authorizationForm.valid" class="divButton">
-    <a (click)="login()">Войти</a>
-  </div>
-</form>
+<div class="login">
+  <form (submit)="login()" *ngIf="isLogin == false; else elseBlock" [formGroup]="authorizationForm">
+    <table>
+      <caption>Введите логин/пароль</caption>
+      <tr>
+        <td>Логин</td>
+        <td><input formControlName="username" placeholder="****" value="" ></td>
+      </tr>
+      <tr>
+        <td>Пароль</td>
+        <td><input type = "password" formControlName="password" placeholder="****" value=""></td>
+      </tr>
+    </table>
+    <button   *ngIf="authorizationForm.valid"
+              type="submit"
+              (click)="login()"
+              class="button"
+    >Войти</button>
+  </form>
+
+  <ng-template #elseBlock>
+    <app-user [user]="user"></app-user>
+    <button (click)="logOut()" class="button">Выйти</button>
+  </ng-template>
+
+</div>
+<br>

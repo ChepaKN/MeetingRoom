@@ -1,11 +1,11 @@
 TABLE {
-  border-collapse: collapse; /* Убираем двойные линии между ячейками */
+  border-collapse: collapse;
   width: auto;
 }
 TD, TR {
-  padding: 3px; /* Поля вокруг содержимого таблицы */
-  border: 2px solid #1abc9c; /* Параметры рамки */
-  text-align: center; /* Выравнивание по левому краю */
+  padding: 3px;
+  border: 2px solid #1abc9c;
+  text-align: center;
 }
 input{
   border: none;
@@ -32,3 +32,20 @@ a:hover{
 .divButton:hover{
   background: #FAFAFA;
 }
+
+.button{
+  background: #2ad4b6;
+  height: 30px;
+  width: 200px;
+  border-radius: 5px;
+  border-color: white;
+  color: white;
+  font-size: 18px;
+  font-family: Verdana, sans-serif;
+
+}
+.button:hover{
+  background: #80e28f;
+  cursor: pointer;
+}
+

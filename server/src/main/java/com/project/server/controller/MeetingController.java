@@ -1,8 +1,7 @@
 package com.project.server.controller;
 
-import com.project.server.controller.dto.DbQueryDTO;
-import com.project.server.controller.dto.MeetingDTO;
-import com.project.server.entity.Meeting;
+import com.project.server.dto.DbQueryDTO;
+import com.project.server.dto.MeetingDTO;
 import com.project.server.service.MeetingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

@@ -52,12 +52,4 @@ export class MeetingFormComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
   }
-
-  clearMeetings(): void {
-    const deleteAllMeetingsSubscription = this.backend.deleteAllMeetings()
-      .subscribe(() => {
-        this.backend.refreshMeetingsData();
-        deleteAllMeetingsSubscription.unsubscribe();
-      });
-  }
 }

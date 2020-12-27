@@ -1,11 +1,4 @@
-package com.project.server.controller.dto;
-
-import com.project.server.entity.Meeting;
-
-import javax.annotation.Generated;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+package com.project.server.dto;
 
 public class MeetingDTO {
 
@@ -23,10 +16,6 @@ public class MeetingDTO {
 
     public MeetingDTO() {
     }
-
-//    public Meeting toDbEntity(){
-//        return new Meeting(this.date, this.initiator, this.estimatedTime);
-//    }
 
     public Long getDate() {
         return date;

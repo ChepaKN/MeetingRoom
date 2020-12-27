@@ -1,7 +1,15 @@
-CREATE TABLE IF NOT EXISTS meetingsTable
-(
-    id              SERIAL PRIMARY KEY ,
-    date            BIGSERIAL NOT NULL ,
-    initiator       VARCHAR(254) NOT NULL ,
-    estimatedTime    SERIAL  NOT NULL
-);
+-- CREATE TABLE IF NOT EXISTS meetingsTable
+-- (
+--     id              SERIAL PRIMARY KEY ,
+--     date            BIGSERIAL NOT NULL ,
+--     initiator       VARCHAR(254) NOT NULL ,
+--     estimatedTime    SERIAL  NOT NULL
+-- );
+--
+-- CREATE TABLE IF NOT EXISTS users
+-- (
+--     id              SERIAL PRIMARY KEY ,
+--     login           VARCHAR(254) NOT NULL ,
+--     password        VARCHAR(254) NOT NULL ,
+--     username        VARCHAR(254) NOT NULL
+-- );

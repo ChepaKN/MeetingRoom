@@ -1,11 +1,9 @@
 package com.project.server.service;
 
-import com.project.server.controller.dto.DbQueryDTO;
-import com.project.server.controller.dto.MeetingDTO;
+import com.project.server.dto.DbQueryDTO;
+import com.project.server.dto.MeetingDTO;
 import com.project.server.entity.Meeting;
 import com.project.server.repository.MeetingRepository;
-import com.sun.istack.NotNull;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
@@ -47,10 +45,6 @@ public class MeetingService {
                                             m.getInitiator(),
                                             m.getEstimatedTime()))
                 .collect(Collectors.toList());
-    }
-
-    public List<MeetingDTO> readByWeek(DbQueryDTO dbQueryDTO) {
-        return null;
     }
 
     public MeetingDTO read(int id) {

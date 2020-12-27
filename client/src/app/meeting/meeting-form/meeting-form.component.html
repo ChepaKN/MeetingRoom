@@ -1,6 +1,5 @@
 <form [formGroup]="meetingForm">
   <table>
-    <caption style="">Заполните форму</caption>
     <tr>
       <td>Дата, время</td>
       <td><input formControlName="meetingDate" placeholder="YYYY.MM.DD hh:mm" value="" ></td>
@@ -18,10 +17,10 @@
     </tr>
   </table>
   <br>
-  <div class="divButton">
-    <a routerLink="">К календарю</a>
-  </div>
-  <div *ngIf="meetingForm.valid" class="divButton">
-    <a (click)="addMeetingEvent()">Добавить</a>
-  </div>
+
+  <button class="button" routerLink="">К календарю</button>
+  <button class="button"
+          *ngIf="meetingForm.valid"
+          (click)="addMeetingEvent()"
+  >Добавить</button>
 </form>

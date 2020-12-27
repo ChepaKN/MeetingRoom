@@ -31,10 +31,14 @@ body {font-family: Verdana, sans-serif;}
   color: #333333;
   background: #81d9b1;;
   border: #1abc9c 1px solid;
+  border-radius: 4px;
   text-align: left;
   width: auto;
   margin: 5px;
   cursor: pointer;
+}
+.meet:hover{
+  background: #25ae6c;
 }
 
 table {
@@ -78,6 +82,21 @@ a:hover{
   float: right;
 }
 .divButton:hover{
-
   background: #FAFAFA;
+}
+
+.button{
+  background: #2ad4b6;
+  height: 30px;
+  width: 200px;
+  border-radius: 5px;
+  border-color: white;
+  color: white;
+  font-size: 18px;
+  font-family: Verdana, sans-serif;
+
+}
+.button:hover{
+  background: #80e28f;
+  cursor: pointer;
 }

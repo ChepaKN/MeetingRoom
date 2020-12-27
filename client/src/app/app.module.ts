@@ -3,29 +3,27 @@ import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
 import { MeetingFormComponent } from './meeting/meeting-form/meeting-form.component';
-import {FormsModule, ReactiveFormsModule} from "@angular/forms";
-import {FormErrorComponent} from "./form-error/form-error.component";
-import {HttpClientModule} from "@angular/common/http";
-import {BackendService} from "./service/backend.service";
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {FormErrorComponent} from './form-error/form-error.component';
+import {HttpClientModule} from '@angular/common/http';
+import {BackendService} from './service/backend.service';
 import { WeekComponent } from './week/week.component';
 import { DayComponent } from './day/day.component';
 import {RouterModule, Routes} from '@angular/router';
 import { AuthorizationFormComponent } from './authorization-form/authorization-form.component';
 import {AuthorizationService} from './service/authorization.service';
+import { UserComponent } from './user/user.component';
 
-const routes: Routes = [{
+const routes: Routes = [
+{
   path: '',
   pathMatch: 'full',
   component: WeekComponent,
 }, {
   path: 'addMeeting',
   component: MeetingFormComponent
-},
-  {
-    path: 'authorization',
-    pathMatch: 'full',
-    component: AuthorizationFormComponent,
-}];
+}
+];
 
 @NgModule({
   declarations: [
@@ -35,6 +33,7 @@ const routes: Routes = [{
     WeekComponent,
     DayComponent,
     AuthorizationFormComponent,
+    UserComponent,
   ],
     imports: [
         BrowserModule,
