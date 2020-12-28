@@ -1,14 +1,20 @@
 TABLE {
-  border-collapse: collapse;
   width: auto;
+  background-color: #eaeaea;
+  border: 2px solid #1abc9c;
+  border-radius: 5px;
 }
 TD, TR {
   padding: 3px;
-  border: 2px solid #1abc9c;
+  border: 1px solid #1abc9c;
   text-align: center;
 }
 input{
   border: none;
+  background-color: #eaeaea;
+}
+input:hover{
+  background-color: #b5b5b5;
 }
 
 a{

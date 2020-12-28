@@ -102,17 +102,17 @@ public class MeetingService {
             if(belowCount > 0 && topCount > 0) {
                 //between two dates
                 long nearestBelowDate = meetingRepository.findNearestBelow(meetingDTO.getDate());
-                long nearestTopDate = meetingRepository.findNearestTop(meetingDTO.getDate() + meetingDTO.getEstimatedTime() * msInMin);
+                long nearestTopDate = meetingRepository.findNearestTop(meetingDTO.getDate());
                 Meeting nearestBelowMeeting = meetingRepository.findByDate(nearestBelowDate);
                 Meeting nearestTopMeeting = meetingRepository.findByDate(nearestTopDate);
                 if (meetingDTO.getDate() > (nearestBelowMeeting.getDate() + nearestBelowMeeting.getEstimatedTime() * msInMin)) {
-                    toReturn = meetingDTO.getDate() < nearestTopMeeting.getDate();
+                    toReturn = (meetingDTO.getDate() + meetingDTO.getEstimatedTime() * msInMin) < nearestTopMeeting.getDate();
                 } else {
                     toReturn = false;
                 }
             }else if (belowCount == 0){
                 //below
-                long nearestTopDate = meetingRepository.findNearestTop(meetingDTO.getDate() + meetingDTO.getEstimatedTime() * msInMin);
+                long nearestTopDate = meetingRepository.findNearestTop(meetingDTO.getDate());
                 toReturn = ((meetingDTO.getDate() + meetingDTO.getEstimatedTime() * msInMin) < nearestTopDate);
             }else{
                 //above

@@ -1,4 +1,4 @@
-<form [formGroup]="meetingForm">
+<form (submit)="addMeetingEvent()" [formGroup]="meetingForm">
   <table>
     <tr>
       <td>Дата, время</td>
@@ -18,9 +18,10 @@
   </table>
   <br>
 
-  <button class="button" routerLink="">К календарю</button>
-  <button class="button"
+  <button  type="button" class="button" routerLink="">К календарю</button>
+  <button
+          type="submit"
+          class="button"
           *ngIf="meetingForm.valid"
-          (click)="addMeetingEvent()"
-  >Добавить</button>
+          >Добавить</button>
 </form>

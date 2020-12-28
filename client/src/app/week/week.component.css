@@ -94,7 +94,7 @@ a:hover{
   color: white;
   font-size: 18px;
   font-family: Verdana, sans-serif;
-
+  margin-left: 7px;
 }
 .button:hover{
   background: #80e28f;
